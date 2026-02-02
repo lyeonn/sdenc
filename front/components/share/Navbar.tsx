@@ -5,12 +5,12 @@ import Link from "next/link";
 const navItems = [
   {
     label: "회사소개",
-    href: "/about",
+    href: "/aboutUs",
     subMenus: ["회사소개", "보유면허", "오시는 길"],
   },
   {
     label: "사업분야",
-    href: "/business",
+    href: "/businessArea",
     subMenus: ["특화해석", "상세구조해석", "RND 지원"],
   },
   {
@@ -53,7 +53,7 @@ export default function Navbar() {
               >
                 <Link
                   href={item.href}
-                  className={`text-xs transition-colors relative pb-4 ${
+                  className={`block w-full h-full py-2 text-xs transition-colors relative ${
                     activeMenu === item.label
                       ? "text-[#1a365d] font-semibold"
                       : "text-gray-700 hover:text-[#1a365d]"
