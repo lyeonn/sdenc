@@ -36,10 +36,9 @@ export default function Navbar() {
       onMouseLeave={() => {
         setIsOpen(false);
         setActiveMenu(null);
-      }}
-    >
-      <div className="flex justify-center">
-        <div className="px-4 py-3 flex items-center">
+      }}>
+      <div className="flex justify-center max-w-[1200px] w-full mx-auto">
+        <div className="px-4 py-3 flex items-center justify-between w-full">
           <Link href="/" className="text-xl font-bold text-[#1a365d] w-40">
             SD E&C
           </Link>
@@ -48,17 +47,15 @@ export default function Navbar() {
             {navItems.map((item) => (
               <li
                 key={item.href}
-                className="w-24 text-center"
-                onMouseEnter={() => setActiveMenu(item.label)}
-              >
+                className="w-36 text-center"
+                onMouseEnter={() => setActiveMenu(item.label)}>
                 <Link
                   href={item.href}
                   className={`block w-full h-full py-2 text-xs transition-colors relative ${
                     activeMenu === item.label
                       ? "text-[#1a365d] font-semibold"
                       : "text-gray-700 hover:text-[#1a365d]"
-                  }`}
-                >
+                  }`}>
                   {item.label}
                   {/* 밑줄 표시 */}
                   {activeMenu === item.label && (
@@ -74,25 +71,22 @@ export default function Navbar() {
       {/* 메가 메뉴 - 모든 서브메뉴가 한 번에 표시 */}
       {isOpen && (
         <div className="absolute top-full left-0 w-full bg-[rgba(255,255,255,0.9)] shadow-lg py-4 backdrop-blur-sm border-t border-gray-200">
-          <div className="flex justify-center">
-            <div className="px-4 flex">
-              <div className="w-40" /> {/* 로고 자리 */}
-              <ul className="flex">
-                {navItems.map((item) => (
-                  <li key={item.href} className="w-24 text-center">
-                    {item.subMenus.map((sub) => (
-                      <Link
-                        key={sub}
-                        href="#"
-                        className="block py-1 text-xs text-gray-600 hover:text-[#1a365d] hover:font-semibold"
-                      >
-                        {sub}
-                      </Link>
-                    ))}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="max-w-[1200px] w-full mx-auto px-4 flex items-start justify-between">
+            <div className="w-40" /> {/* 로고 자리 */}
+            <ul className="flex">
+              {navItems.map((item) => (
+                <li key={item.href} className="w-36 text-center">
+                  {item.subMenus.map((sub) => (
+                    <Link
+                      key={sub}
+                      href="#"
+                      className="block py-1 text-xs text-gray-600 hover:text-[#1a365d] hover:font-semibold">
+                      {sub}
+                    </Link>
+                  ))}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       )}

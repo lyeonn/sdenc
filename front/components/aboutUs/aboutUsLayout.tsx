@@ -8,7 +8,7 @@ function AboutUsSection({ children }: AboutUsSectionProps) {
 
 export default function AboutUsLayout() {
   return (
-    <div className="max-w-xl mx-auto px-6 py-8">
+    <div className="max-w-[1200px] mx-auto">
       {/* 회사 소개 섹션 */}
       <AboutUsSection>
         <h2 className="text-lg font-bold text-[#1a365d] mb-4">회사소개</h2>
