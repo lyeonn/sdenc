@@ -16,11 +16,18 @@ export default function KakaoMap() {
     if (!mapRef.current) return;
     const { kakao } = window;
     kakao.maps.load(() => {
+      const center = new kakao.maps.LatLng(33.450701, 126.570667);
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center,
         level: 3,
       };
-      new kakao.maps.Map(mapRef.current, options);
+      const map = new kakao.maps.Map(mapRef.current, options);
+
+      // 마커 생성 및 표시
+      const marker = new kakao.maps.Marker({
+        position: center,
+      });
+      marker.setMap(map);
     });
   };
   return (

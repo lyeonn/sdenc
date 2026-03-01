@@ -31,15 +31,15 @@ export default function Navbar() {
 
   return (
     <nav
-      className="relative w-full bg-[rgba(255,255,255,0.95)] border-b border-gray-200"
+      className="relative z-50 w-full bg-[rgba(255,255,255,0.95)] border-b border-gray-200"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => {
         setIsOpen(false);
         setActiveMenu(null);
       }}>
       <div className="flex justify-center max-w-[1200px] w-full mx-auto">
-        <div className="px-4 py-3 flex items-center justify-between w-full">
-          <Link href="/" className="text-xl font-bold text-[#1a365d] w-40">
+        <div className="px-4 py-6 flex items-center justify-between w-full">
+          <Link href="/" className="text-4xl font-bold text-[#1a365d] w-40">
             SD E&C
           </Link>
 
@@ -47,11 +47,11 @@ export default function Navbar() {
             {navItems.map((item) => (
               <li
                 key={item.href}
-                className="w-36 text-center"
+                className="w-44 text-center"
                 onMouseEnter={() => setActiveMenu(item.label)}>
                 <Link
                   href={item.href}
-                  className={`block w-full h-full py-2 text-xs transition-colors relative ${
+                  className={`block w-full h-full py-2 text-xl transition-colors relative ${
                     activeMenu === item.label
                       ? "text-[#1a365d] font-semibold"
                       : "text-gray-700 hover:text-[#1a365d]"
@@ -75,12 +75,12 @@ export default function Navbar() {
             <div className="w-40" /> {/* 로고 자리 */}
             <ul className="flex">
               {navItems.map((item) => (
-                <li key={item.href} className="w-36 text-center">
+                <li key={item.href} className="w-44 text-center">
                   {item.subMenus.map((sub) => (
                     <Link
                       key={sub}
                       href="#"
-                      className="block py-1 text-xs text-gray-600 hover:text-[#1a365d] hover:font-semibold">
+                      className="block py-1 text-xl text-gray-600 hover:text-[#1a365d] hover:font-semibold">
                       {sub}
                     </Link>
                   ))}
