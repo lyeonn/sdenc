@@ -1,33 +1,51 @@
-"use client";
-import { useState } from "react";
-import Link from "next/link";
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import { fetchBusinessAreaNames } from '@/api/businessArea';
 
-const navItems = [
+const staticNavItems = [
   {
-    label: "회사소개",
-    href: "/aboutUs",
-    subMenus: ["회사소개", "보유면허", "오시는 길"],
+    label: '회사소개',
+    href: '/aboutUs',
+    subMenus: ['회사소개', '보유면허', '오시는 길'],
   },
   {
-    label: "사업분야",
-    href: "/businessArea",
-    subMenus: ["특화해석", "상세구조해석", "RND 지원"],
+    label: '사업분야',
+    href: '/businessArea',
+    subMenus: [] as string[],
   },
   {
-    label: "참여실적",
-    href: "/projects",
-    subMenus: ["BIM", "스마트건설", "특화해석", "S/W 개발"],
+    label: '참여실적',
+    href: '/projects',
+    subMenus: ['BIM', '스마트건설', '특화해석', 'S/W 개발'],
   },
   {
-    label: "문의",
-    href: "/contact",
-    subMenus: ["공지사항"],
+    label: '문의',
+    href: '/contact',
+    subMenus: ['공지사항'],
   },
 ];
+
+const namesPromise = fetchBusinessAreaNames();
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [businessAreaNames, setBusinessAreaNames] = useState<string[]>([]);
+  const [namesLoaded, setNamesLoaded] = useState(false);
+
+  if (!namesLoaded) {
+    namesPromise.then((names) => {
+      setBusinessAreaNames(names);
+      setNamesLoaded(true);
+    });
+  }
+
+  const navItems = staticNavItems.map((item) =>
+    item.label === '사업분야'
+      ? { ...item, subMenus: businessAreaNames }
+      : item
+  );
 
   return (
     <nav
