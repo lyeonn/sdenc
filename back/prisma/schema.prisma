@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==================== User ====================
+model User {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete
+
+  email        String? @unique
+  nickname     String?
+  profileImage String?
+  kakaoId      String  @unique // 카카오 고유 ID
+  accessToken  String?
+  refreshToken String?
+}
+
+// ==================== 사업분야 ====================
+model BusinessArea {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete
+
+  name        String  @unique // 특화해석, 상세구조해석, RND 지원 등
+  description String?
+  imageUrl    String?
+  sortOrder   Int     @default(0)
+
+  items BusinessAreaList[]
+}
+
+model BusinessAreaList {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete
+
+  title          String
+  description    String?
+  imageUrl       String?
+  businessAreaId Int
+  sortOrder      Int     @default(0)
+
+  businessArea BusinessArea @relation(fields: [businessAreaId], references: [id], onDelete: Cascade)
+}
+
+// ==================== 참여실적 ====================
+model Project {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete
+
+  category    String // BIM, 스마트건설, 특화해석, S/W 개발 등
+  title       String
+  description String?
+  sortOrder   Int     @default(0)
+
+  items ProjectItem[]
+}
+
+model ProjectItem {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete
+
+  title       String
+  description String?
+  imageUrl    String?
+  client      String? // 발주처
+  period      String? // 수행기간
+  projectId   Int
+  sortOrder   Int     @default(0)
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
